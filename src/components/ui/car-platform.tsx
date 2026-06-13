@@ -405,7 +405,12 @@ export function CarPlatform({ userProfile, cmsData, availableTimes = ["08:00", "
                       onClick={() => {
                         setIsSidebarOpen(false);
                         const techWash = activeServices.find((s: any) => s.name === "Lavagem Técnica Detalhada");
-                        if (techWash) setSelectedService(techWash);
+                        if (techWash) {
+                          setSelectedService(techWash);
+                          setAdditionalServices([]);
+                          setShowAdditionalServices(false);
+                          setModalCategory("");
+                        }
                       }}
                       className="w-full bg-gradient-to-r from-orange-600 to-orange-500 text-white rounded font-bold py-2 text-xs hover:scale-105 transition-transform"
                     >
@@ -1232,71 +1237,73 @@ export function CarPlatform({ userProfile, cmsData, availableTimes = ["08:00", "
                           )}
                         </div>
                         
-                        <div>
-                          <button 
-                            type="button" 
-                            onClick={() => setShowAdditionalServices(!showAdditionalServices)}
-                            className="w-full flex items-center justify-between text-sm font-medium text-slate-300 mb-2 py-2 px-1 hover:text-white transition-colors"
-                          >
-                            <span>Adicionar mais serviços (Opcional)</span>
-                            <svg className={`w-5 h-5 transition-transform duration-300 ${showAdditionalServices ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
-                          </button>
-                          
-                          {showAdditionalServices && (
-                            <div className="animate-in slide-in-from-top-2 fade-in duration-300 border border-slate-800 bg-slate-900/30 rounded-xl p-3">
-                              <div className="flex gap-2 overflow-x-auto pb-2 mb-2 scrollbar-hide">
-                                {categories.filter((cat: string) => cat !== "Todos").map((cat: string) => (
-                                  <button
-                                    key={cat}
-                                    type="button"
-                                    onClick={() => setModalCategory(modalCategory === cat ? "" : cat)}
-                                    className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors border ${
-                                      modalCategory === cat 
-                                        ? "bg-orange-600 text-white border-orange-500" 
-                                        : "bg-slate-800 text-slate-400 border-slate-700 hover:bg-slate-700 hover:text-white"
-                                    }`}
-                                  >
-                                    {cat}
-                                  </button>
-                                ))}
-                              </div>
+                        {!(userProfile?.loyalty_points >= 10 && selectedService.name === "Lavagem Técnica Detalhada") && (
+                          <div>
+                            <button 
+                              type="button" 
+                              onClick={() => setShowAdditionalServices(!showAdditionalServices)}
+                              className="w-full flex items-center justify-between text-sm font-medium text-slate-300 mb-2 py-2 px-1 hover:text-white transition-colors"
+                            >
+                              <span>Adicionar mais serviços (Opcional)</span>
+                              <svg className={`w-5 h-5 transition-transform duration-300 ${showAdditionalServices ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            
+                            {showAdditionalServices && (
+                              <div className="animate-in slide-in-from-top-2 fade-in duration-300 border border-slate-800 bg-slate-900/30 rounded-xl p-3">
+                                <div className="flex gap-2 overflow-x-auto pb-2 mb-2 scrollbar-hide">
+                                  {categories.filter((cat: string) => cat !== "Todos").map((cat: string) => (
+                                    <button
+                                      key={cat}
+                                      type="button"
+                                      onClick={() => setModalCategory(modalCategory === cat ? "" : cat)}
+                                      className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors border ${
+                                        modalCategory === cat 
+                                          ? "bg-orange-600 text-white border-orange-500" 
+                                          : "bg-slate-800 text-slate-400 border-slate-700 hover:bg-slate-700 hover:text-white"
+                                      }`}
+                                    >
+                                      {cat}
+                                    </button>
+                                  ))}
+                                </div>
 
-                              <div className="flex flex-col gap-2 max-h-40 overflow-y-auto pr-2 scrollbar-hide">
-                                {modalCategory === "" ? (
-                                  <p className="text-xs text-slate-500 italic text-center py-4">
-                                    Selecione uma categoria acima para ver os opcionais.
-                                  </p>
-                                ) : (
-                                  activeServices
-                                    .filter((s: any) => s.id !== selectedService.id)
-                                    .filter((s: any) => s.type === modalCategory)
-                                    .map((s: any) => {
-                                    const isAdded = additionalServices.some(as => as.id === s.id)
-                                    return (
-                                      <label key={s.id} className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition-all ${isAdded ? 'border-orange-500 bg-orange-500/10' : 'border-slate-800 bg-slate-900/50 hover:border-slate-600'}`}>
-                                        <div className="flex items-center gap-3">
-                                          <input 
-                                            type="checkbox" 
-                                            className="w-4 h-4 accent-orange-500"
-                                            checked={isAdded}
-                                            onChange={(e) => {
-                                              if (e.target.checked) setAdditionalServices(prev => [...prev, s])
-                                              else setAdditionalServices(prev => prev.filter(as => as.id !== s.id))
-                                            }}
-                                          />
-                                          <div className="flex flex-col">
-                                            <span className="text-white text-sm font-medium">{s.name}</span>
+                                <div className="flex flex-col gap-2 max-h-40 overflow-y-auto pr-2 scrollbar-hide">
+                                  {modalCategory === "" ? (
+                                    <p className="text-xs text-slate-500 italic text-center py-4">
+                                      Selecione uma categoria acima para ver os opcionais.
+                                    </p>
+                                  ) : (
+                                    activeServices
+                                      .filter((s: any) => s.id !== selectedService.id)
+                                      .filter((s: any) => s.type === modalCategory)
+                                      .map((s: any) => {
+                                      const isAdded = additionalServices.some(as => as.id === s.id)
+                                      return (
+                                        <label key={s.id} className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition-all ${isAdded ? 'border-orange-500 bg-orange-500/10' : 'border-slate-800 bg-slate-900/50 hover:border-slate-600'}`}>
+                                          <div className="flex items-center gap-3">
+                                            <input 
+                                              type="checkbox" 
+                                              className="w-4 h-4 accent-orange-500"
+                                              checked={isAdded}
+                                              onChange={(e) => {
+                                                if (e.target.checked) setAdditionalServices(prev => [...prev, s])
+                                                else setAdditionalServices(prev => prev.filter(as => as.id !== s.id))
+                                              }}
+                                            />
+                                            <div className="flex flex-col">
+                                              <span className="text-white text-sm font-medium">{s.name}</span>
+                                            </div>
                                           </div>
-                                        </div>
-                                        <span className="text-slate-400 text-xs">{s.price}</span>
-                                      </label>
-                                    )
-                                  })
-                                )}
+                                          <span className="text-slate-400 text-xs">{s.price}</span>
+                                        </label>
+                                      )
+                                    })
+                                  )}
+                                </div>
                               </div>
-                            </div>
-                          )}
-                        </div>
+                            )}
+                          </div>
+                        )}
 
                         <div>
                           <label className="block text-sm font-medium text-slate-300 mb-2">
