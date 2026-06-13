@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <!-- Vibrant Neon Orange to Gold gradient (Automotive Speed Theme) -->
+    <linearGradient id="neon" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ea580c" />
+      <stop offset="50%" stop-color="#f97316" />
+      <stop offset="100%" stop-color="#fbbf24" />
+    </linearGradient>
+
+    <!-- Base G cutout mask -->
+    <mask id="g-shape">
+      <rect width="120" height="120" fill="white" />
+      <circle cx="60" cy="60" r="23" fill="black" />
+      <rect x="60" y="0" width="60" height="60" fill="black" />
+    </mask>
+
+    <!-- The speed cuts (Racing Stripes cutting through) -->
+    <mask id="speed-cuts">
+      <rect width="120" height="120" fill="white" />
+      <g transform="rotate(-35 60 60)">
+        <rect x="-50" y="45" width="220" height="8" fill="black" />
+        <rect x="-50" y="60" width="220" height="3" fill="black" />
+      </g>
+    </mask>
+  </defs>
+
+  <!-- Group with Skew (Italic / Speed) and Speed Cuts -->
+  <g transform="translate(15, 0) skewX(-14)" mask="url(#speed-cuts)">
+    
+    <!-- Base 3/4 circle -->
+    <circle cx="60" cy="60" r="45" fill="url(#neon)" mask="url(#g-shape)" />
+    
+    <!-- Top extension -->
+    <path d="M 60 15 A 45 45 0 0 1 91.8 28.2 L 76.3 43.7 A 23 23 0 0 0 60 37 Z" fill="url(#neon)" />
+    
+    <!-- Crossbar -->
+    <rect x="60" y="48" width="45" height="24" fill="url(#neon)" />
+    
+  </g>
+</svg>
