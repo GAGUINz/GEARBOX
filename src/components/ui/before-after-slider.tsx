@@ -66,13 +66,28 @@ export function BeforeAfterSlider({ isGoldMode, imageUrl: propImageUrl, imageUrl
           handleMove(e.touches[0].clientX)
         }}
       >
-        {/* AFTER IMAGE (Bottom Layer - dictates height) */}
-        <div className="w-full relative">
+        {/* DESKTOP SPACER: Forces 16:9 aspect ratio safely using the bulletproof padding-bottom hack */}
+        <div className="hidden md:block w-full pointer-events-none" style={{ paddingBottom: '56.25%' }}></div>
+
+        {/* AFTER IMAGE (Bottom Layer - MOBILE: dictates height) */}
+        <div className="w-full relative md:hidden">
           <img 
             loading="lazy"
             src={imageUrlAfter} 
             alt="Pintura Vitrificada" 
             className="w-full h-auto block pointer-events-none"
+            style={!propImageUrl ? { filter: "contrast(115%) brightness(115%) saturate(130%)" } : { transform: "scale(1.09) translate(-2%, -3%)" }}
+          />
+          <div className="absolute top-6 right-6 bg-gradient-to-r from-orange-600 to-orange-500 shadow-[0_0_15px_rgba(234,88,12,0.5)] text-white px-4 py-2 rounded-full text-xs tracking-widest font-bold z-10">DEPOIS</div>
+        </div>
+
+        {/* AFTER IMAGE (Bottom Layer - DESKTOP: fills the spacer area) */}
+        <div className="hidden md:block absolute inset-0 w-full h-full">
+          <img 
+            loading="lazy"
+            src={imageUrlAfter} 
+            alt="Pintura Vitrificada" 
+            className="w-full h-full object-cover pointer-events-none"
             style={!propImageUrl ? { filter: "contrast(115%) brightness(115%) saturate(130%)" } : { transform: "scale(1.09) translate(-2%, -3%)" }}
           />
           <div className="absolute top-6 right-6 bg-gradient-to-r from-orange-600 to-orange-500 shadow-[0_0_15px_rgba(234,88,12,0.5)] text-white px-4 py-2 rounded-full text-xs tracking-widest font-bold z-10">DEPOIS</div>

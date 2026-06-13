@@ -423,11 +423,11 @@ export function CarPlatform({ userProfile, cmsData, availableTimes = ["08:00", "
                   Meus Agendamentos
                   <span className="bg-slate-800 text-slate-300 text-xs px-2 py-0.5 rounded-full">{myAppointments.length}</span>
                 </h3>
-                <div className="space-y-3 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
+                <div className="space-y-3 max-h-[50vh] overflow-y-auto pr-2 custom-scrollbar">
                   {myAppointments.map(app => (
                     <div key={app.id} className="bg-slate-900 border border-slate-800 rounded-lg p-3">
-                      <div className="flex justify-between items-start mb-2">
-                        <div className={`text-xs font-bold truncate max-w-[160px] ${app.service_name?.includes('GRÁTIS') ? 'text-orange-400' : 'text-white'}`}>
+                      <div className="flex justify-between items-start mb-2 gap-2">
+                        <div className={`text-xs font-bold leading-relaxed flex-1 ${app.service_name?.includes('GRÁTIS') ? 'text-orange-400' : 'text-white'}`}>
                           {app.service_name}
                         </div>
                         {app.status === 'Concluído' ? (
