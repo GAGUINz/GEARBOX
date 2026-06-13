@@ -363,10 +363,10 @@ export function CarPlatform({ userProfile, cmsData, availableTimes = ["08:00", "
           />
           
           {/* Sidebar */}
-          <div className="relative w-full max-w-sm h-full bg-slate-950 border-l border-slate-800 p-6 flex flex-col shadow-2xl animate-in slide-in-from-right duration-300">
+          <div className="relative w-full max-w-sm h-full bg-slate-950 border-l border-slate-800 p-6 flex flex-col shadow-2xl animate-in slide-in-from-right duration-300 overflow-y-auto custom-scrollbar">
             <button 
               onClick={() => setIsSidebarOpen(false)}
-              className="absolute top-6 right-6 text-slate-400 hover:text-white transition-colors"
+              className="absolute top-6 right-6 text-slate-400 hover:text-white transition-colors z-50"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
@@ -377,7 +377,7 @@ export function CarPlatform({ userProfile, cmsData, availableTimes = ["08:00", "
             </div>
 
             {/* Loyalty Card */}
-            <div className="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-6 mb-8 relative overflow-hidden">
+            <div className="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-6 mb-8 relative overflow-hidden shrink-0">
               <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/10 blur-[50px] pointer-events-none" />
               
               <div className="flex items-center justify-between mb-4 relative z-10">
