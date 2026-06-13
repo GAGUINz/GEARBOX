@@ -412,24 +412,16 @@ export function DashboardClient({ initialAppointments, initialAvailableTimes, in
       {activeTab === 'finance' && (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
           {/* Header & Month Navigation */}
-          <div className="flex justify-between items-center bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-            <h2 className="text-xl font-bold text-white">Relatório Financeiro</h2>
-            <div className="flex gap-4 items-center">
-              <button 
-                onClick={() => setFinanceDate(new Date(financeDate.getFullYear(), financeDate.getMonth() - 1, 1))} 
-                className="p-2 bg-slate-800 text-slate-300 rounded hover:bg-slate-700 transition"
-              >
-                ⬅️
-              </button>
-              <div className="text-lg font-bold text-emerald-400 w-40 text-center uppercase tracking-wider text-sm">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+            <div className="flex items-center gap-3">
+              <h2 className="text-2xl font-black text-white">Relatório Financeiro</h2>
+            </div>
+            <div className="flex gap-2 items-center justify-between w-full md:w-auto">
+              <button onClick={() => setFinanceDate(new Date(financeDate.getFullYear(), financeDate.getMonth() - 1, 1))} className="p-3 sm:p-2 bg-slate-800 rounded hover:bg-slate-700 transition leading-none flex-shrink-0">⬅️</button>
+              <div className="text-sm font-bold text-slate-500 uppercase tracking-widest bg-slate-900 px-4 py-2 rounded-lg flex-1 text-center">
                 {["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"][financeDate.getMonth()]} {financeDate.getFullYear()}
               </div>
-              <button 
-                onClick={() => setFinanceDate(new Date(financeDate.getFullYear(), financeDate.getMonth() + 1, 1))} 
-                className="p-2 bg-slate-800 text-slate-300 rounded hover:bg-slate-700 transition"
-              >
-                ➡️
-              </button>
+              <button onClick={() => setFinanceDate(new Date(financeDate.getFullYear(), financeDate.getMonth() + 1, 1))} className="p-3 sm:p-2 bg-slate-800 rounded hover:bg-slate-700 transition leading-none flex-shrink-0">➡️</button>
             </div>
           </div>
 

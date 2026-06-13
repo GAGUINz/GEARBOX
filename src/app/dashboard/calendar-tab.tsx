@@ -157,20 +157,20 @@ export function CalendarTab({ initialAppointments, initialAvailableTimes }: { in
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
           <h2 className="text-2xl font-black text-white">Calendário Financeiro & Agenda</h2>
           
-          <div className="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full md:w-auto justify-between md:justify-end">
             <button 
               onClick={() => setShowConfigModal(true)}
-              className="text-xs font-bold text-orange-400 bg-orange-500/10 border border-orange-500/20 px-3 py-1.5 rounded-lg hover:bg-orange-500/20 transition whitespace-nowrap"
+              className="text-xs font-bold text-orange-400 bg-orange-500/10 border border-orange-500/20 px-3 py-1.5 rounded-lg hover:bg-orange-500/20 transition whitespace-nowrap w-full sm:w-auto text-center"
             >
               ⚙️ Configurar Horários
             </button>
 
-            <div className="flex gap-2 items-center">
-              <button onClick={prevMonth} className="p-2 bg-slate-800 rounded hover:bg-slate-700 transition leading-none">⬅️</button>
-              <div className="text-sm sm:text-lg font-bold text-orange-400 w-32 sm:w-48 text-center truncate">
+            <div className="flex gap-2 items-center justify-between w-full sm:w-auto">
+              <button onClick={prevMonth} className="p-3 sm:p-2 bg-slate-800 rounded hover:bg-slate-700 transition leading-none flex-shrink-0">⬅️</button>
+              <div className="text-sm sm:text-lg font-bold text-orange-400 flex-1 text-center truncate px-2">
                 {monthNames[month]} {year}
               </div>
-              <button onClick={nextMonth} className="p-2 bg-slate-800 rounded hover:bg-slate-700 transition leading-none">➡️</button>
+              <button onClick={nextMonth} className="p-3 sm:p-2 bg-slate-800 rounded hover:bg-slate-700 transition leading-none flex-shrink-0">➡️</button>
             </div>
           </div>
         </div>
